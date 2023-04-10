@@ -16,13 +16,14 @@ router.post('/upload', (req, res) => {
 
         image.title = req.body.title;
         image.description = req.body.description;
-        image.filname = req.file.fieldname;
-        image.path = '/img/uploads/' + req.file.fieldname;
+        image.filename = req.file.filename;
+        image.path = '/img/uploads/' + req.file.filename;
         image.originalname = req.file.originalname;
         image.mimetype = req.file.mimetype;
         image.size = req.file.size;
 
     console.log(image);
+    console.log(req.file);
     res.send('uploaded');
 });
 

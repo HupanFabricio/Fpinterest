@@ -2,8 +2,8 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const multer = require('multer');
-const { v4 }= require('uuid');
-
+const { v4 } = require('uuid');
+const { format } = require('timeago.js');
 
 //Initializations
 const app = express();
@@ -26,12 +26,17 @@ const storage = multer.diskStorage({
 app.use(multer({ storage : storage }).single('image'));
 
 //Global varibles
+app.use((req, res, next) => {
+    app.locals.format = format;
+    next();
+})
+
 
 //Routes
-
 app.use(require('./routes/index'));
 
 //Static files
+app.use(express.static(path.join(__dirname,'public')))
 
 //Start the server
 

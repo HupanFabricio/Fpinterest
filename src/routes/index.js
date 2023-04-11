@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const router = Router();
+
 const Image = require('../models/Image');
 
 router.get('/', (req, res) => {
@@ -10,7 +11,7 @@ router.get('/upload', (req, res) => {
     res.render('upload');
 });
 
-router.post('/upload', (req, res) => {
+router.post('/upload', async(req, res) => {
 
     const image = new Image();
 
@@ -22,9 +23,9 @@ router.post('/upload', (req, res) => {
         image.mimetype = req.file.mimetype;
         image.size = req.file.size;
 
-    console.log(image);
-    console.log(req.file);
-    res.send('uploaded');
+    await image.save();
+
+    res.redirect('/');
 });
 
 router.get('/image/:id', (req, res) => {   

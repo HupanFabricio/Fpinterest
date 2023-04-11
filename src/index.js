@@ -4,8 +4,10 @@ const morgan = require('morgan');
 const multer = require('multer');
 const { v4 }= require('uuid');
 
+
 //Initializations
 const app = express();
+require('./database');
 
 //Settings
 app.set('port', process.env.PORT || 5000);
